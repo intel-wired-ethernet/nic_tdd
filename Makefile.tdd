@@ -1,0 +1,25 @@
+#$FreeBSD$
+
+TDD_BIN := nic-test
+
+.ifmake legacy
+  TARGET = legacy
+.endif
+
+default: tdd
+
+legacy: tdd
+
+tdd: clean_test
+	$(MAKE) $(TARGET)
+
+clean_test: do_test
+	$(MAKE) -C tdd TDD_BIN=$(TDD_BIN) clean
+
+do_test:
+	$(MAKE) -C tdd TDD_BIN=$(TDD_BIN) $(TARGET)
+	tdd/$(TDD_BIN)
+
+clean:
+	$(MAKE) $@
+	$(MAKE) -C tdd $@
