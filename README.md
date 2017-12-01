@@ -28,3 +28,5 @@ make -f Makefile.tdd [legacy|clean]
 ```
 
 The "legacy" target will build the driver without iflib support. For 10.x hosts (i.e. \_\_FreeBSD\_version < 1100110), it is not necessary (at this time) to specify this target.  In any case where iflib is disabled, the iflib "shim" will kick in.  The **if\_nic.c** source file will be primarily developed as an iflib driver with updates to the shim performed as iflib evolves.
+
+For the mock files, most of the header files are untouched, but some required modification due to code being originally wrapped with \_KERNEL flag.  Instead of exposing a lot of code by defining that flag, it seemed wise to rather copy-paste that code outside of the flag.  To view those areas, grep for "NIC\_TDD" in the tree.
